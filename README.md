@@ -1,1 +1,1 @@
-# BSZ-Schedule-Feed
+# BszScheduleFeed
