@@ -1,5 +1,33 @@
 # BszScheduleFeed
 
-Berufliches Schulzentrum für Elektrotechnik Dresden offers online access to the substitution timetable. This is available as a PDF file and there is no notification of changes.
+Das Berufliche Schulzentrum für Elektrotechnik Dresden bietet einen Online-Zugang zum Vertretungsplan an. Dieser liegt im PDF-Format vor und ist nur nutzerberechtigt mit einem vorgegebenen Nutzernamen und Passwort erreichbar. Da es keine Nutzerbenachrichtigungen gibt und der Zugriff auf die PDF-Ressource über Smartphones erschwert ist, habe ich diese Azure-Funktion erstellt. Diese fragt alle 5 Minuten den Vertretungsplan für IT-Klassen ab und sendet bei Neuerungen die Vertretungsliste an einen Telegrambot.
 
-This Azure function checks every 5 minutes whether there is a new timetable for the IT classes. As soon as an update is available, it sends a message to a Telegram channel.
+Benötigte Ressourcen:
+- Telegram Bot
+- Azure Function (Isolated) benötigt
+- Azure Table Storage
+
+Die Konfiguration muss im Root Order der Azure Function als **"appsettings.json"** bereitgestellt werden.
+
+Beispiel appsettings.json:
+
+```
+{
+  "Telegram": {
+    "Token": "",
+    "ChannelId": "",
+    "DebugChatId": ""
+  },
+  "TableStorage": {
+    "ConnectionString": "",
+    "TableName": "",
+    "DebugTableName": ""
+
+  },
+  "Schedule": {
+    "URL": "http://geschuetzt.bszet.de/s-lk-vw/Vertretungsplaene/vertretungsplan-bs-it.pdf",
+    "Username": "",
+    "Password": ""
+  }
+}
+```
